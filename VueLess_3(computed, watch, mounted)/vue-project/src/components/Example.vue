@@ -46,9 +46,9 @@ mounted позволяет выполнить побочный код тольк
             //     console.log('change name & lastName!!!')
             // }
         },
-        mounted(){
-            console.log('mounted!')
-            this.name = 'AHAHAHAHA'
-        }
+        // mounted(){
+        //     console.log('mounted!')
+        //     this.name = 'AHAHAHAHA'
+        // }
     }
 </script>
