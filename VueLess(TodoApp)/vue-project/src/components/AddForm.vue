@@ -1,6 +1,6 @@
 <template>
-    <form>
-        <select class="select_days">
+    <form @submit.prevent="addNewTask">
+        <select v-model="day" class="select_days">
             <option 
                 v-for="(elem, ind) in days"
                 :value="elem"
@@ -8,12 +8,12 @@
             {{ elem }}
             </option>
         </select>
-        <select class="select_priority">
+        <select v-model="priority" class="select_priority">
             <option :value="true">Важный</option>
             <option :value="false">Не важный</option>
         </select>
-        <input class="title_todo"/>
-        <input class="submit_btn" type="submit"/>
+        <input v-model="title" class="title_todo"/>
+        <input class="submit_btn" type="submit" value="Добавить"/>
     </form>
 </template>
 
@@ -21,7 +21,16 @@
     export default {
         data(){
             return{
-                days: ['ПН','ВТ',"СР","ЧТ","ПТ","СБ","ВС"]
+                days: ['ПН','ВТ',"СР","ЧТ","ПТ","СБ","ВС"],
+                day: '',
+                priority: '',
+                title: ''
+            }
+        },
+        emits: ['addNewTask'],
+        methods: {
+            addNewTask(){
+                this.$emit('addNewTask', this.day, this.title, this.priority)
             }
         }
     }
@@ -36,24 +45,30 @@
                     'TD TD . SB';
 
         justify-content: center;
-        padding: 15px;
-        margin: 60px;
-        gap: 25px
+        padding: 33px 62px;
+        gap: 25px;
+        background-color: #ECF0F1;
+        border-radius: 23px;
     }
     .select_days{
         grid-area: SD;
-        padding: 15px;
+        padding: 13px;
     }
     .select_priority{
         grid-area: SP;
-        padding: 15px;
+        padding: 13px;
     }
     .submit_btn{
         grid-area: SB;
-        padding: 15px;
+        padding: 10px 25px;
+        background-color: #1ABC9C;
+        color: white;
+        border-radius: 26px;
+        border: 1px solid black;
+        font-size: 20px;
     }
     .title_todo{
         grid-area: TD;
-        padding: 15px;
+        padding: 13px;
     }
 </style>

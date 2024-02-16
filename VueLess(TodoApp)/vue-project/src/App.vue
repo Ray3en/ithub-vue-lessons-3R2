@@ -13,11 +13,11 @@ export default {
               [
                   {
                       id_day: 1, 
-                      day_title: 'ПД', 
+                      day_title: 'ПН', 
                       day_todos: [
                           {id: 1, title: 'Помыть руки', priority: true},
-                          {id: 2, title: 'Помыть', priority: false},
-                          {id: 3, title: 'Руки', priority: true}
+                          {id: 2, title: 'Помыть', priority: true},
+                          {id: 3, title: 'Руки', priority: false}
                       ]
                   },
                   {
@@ -31,17 +31,62 @@ export default {
                   },
               ]
       }
+    },
+    methods: {
+      deleteDay(idDay){
+        this.todos = this.todos.filter(el => el.id_day !== idDay)
+      },
+      deleteTask(idDay, idTask){
+        let findDay = this.todos.find(el => el.id_day === idDay)
+        findDay.day_todos =  findDay.day_todos.filter(el => el.id !== idTask)
+        if (!findDay.day_todos.length){
+          this.deleteDay(idDay)
+        }
+      },
+      addNewTask(day, title, priority){
+        let days = ['ПН','ВТ',"СР","ЧТ","ПТ","СБ","ВС"]
+        let newTask = {
+          id: Date.now(),
+          title,
+          priority
+        }
+        let findDay = this.todos.find(el => el.day_title === day)
+        if (findDay){
+          findDay.day_todos.push(newTask)
+          findDay.day_todos.sort((a,b) => b.priority - a.priority)
+        } else {
+          let newDay = {
+            id_day: days.indexOf(day)+1,
+            day_title: day,
+            day_todos: [newTask]
+          }
+          this.todos.push(newDay)
+          this.todos.sort((a,b) => a.id_day - b.id_day)
+        }
+      }
     }
 }
 
 </script>
 
 <template>
-  <add-form></add-form>
-  <day-list :todos="todos"></day-list>
+  <div class="container">
+    <add-form @addNewTask="addNewTask"></add-form>
+    <day-list @deleteTask="deleteTask" @deleteDay="deleteDay" :todos="todos"></day-list>
+  </div>
 </template>
 
 <style>
+body{
+  min-height: 100vh;
+  background-color: #1ABC9C;
+}
+.container{
+  margin-top: 50px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
 *{
   margin: 0;
   padding: 0;
