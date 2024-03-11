@@ -1,0 +1,24 @@
+<div class="user_class">
+    <h2>User List!</h2>
+    <ul>
+        @for(user of users; track user.id){
+            <li>{{user.name}}</li>
+        }
+    </ul>
+    <!-- Пример импорта картинки -->
+    <img src="/assets/1.jpg" width="300"/>
+    <img [src]="srcImage" width="300"/>
+    <div>
+        <p> isShow =  {{ isShow }}</p>
+    </div>
+    <div>
+        <p> name = {{ name }}</p>
+    </div>
+</div>
+
+<!-- 
+ Создайте новый компонент Number. Внутри компонента создайте заголовок h2 с текстом
+ 'Number', а под заголовком передайте как проп сво-во number , который определен
+ в компоненте app. 
+ Компонент Number вызовите внутри (в конце) компонента app
+ -->
