@@ -1,0 +1,11 @@
+.user_card{
+    margin: 30px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: antiquewhite;
+    border-radius: 15px;
+}
