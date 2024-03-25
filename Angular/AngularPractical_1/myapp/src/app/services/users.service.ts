@@ -4,22 +4,34 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UsersService {
+
   public users: any[] = []
-
-  // public async fetchUsers(): Promise<any>{
-  //   let res = await fetch('https://jsonplaceholder.typicode.com/users')
-  //   let data: any = await res.json()
-  //   data.forEach((el: object) => this.users.push(el));
-  // }
-
-    public fetchUsers = (): void => {
-      fetch('https://jsonplaceholder.typicode.com/users')
-        .then(res => res.json())
-        .then(data => {
-          this.users = data
-        })
-    }
+  public nameValue: string = ''
+  public emailValue: string = 'all'
+  public rangeValue: string = '10'
+  public emails: string[] = []
 
 
-  
+  private setToArray(data: any[]): string[]{
+    let set = new Set(data.map(el => el.email.slice(el.email.lastIndexOf('.') + 1)))
+    return [...set]
+  }
+
+  public fetchUserData() :void {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(res => res.json())
+      .then(data => {
+        this.users = data
+        this.emails = this.setToArray(data)
+      })
+  }
+
+  public computedUsers(): any[] {
+    let value = this.nameValue.toLowerCase()
+    return this.users.filter(el => {
+      return el.name.toLowerCase().includes(value) 
+      && (this.emailValue === 'all' || el.email.endsWith(this.emailValue)) 
+      && (el.id >= 1 && el.id <= +this.rangeValue)
+    })
+  }
 }

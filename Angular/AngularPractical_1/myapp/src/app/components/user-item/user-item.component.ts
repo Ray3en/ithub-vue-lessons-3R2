@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './user-item.component.css'
 })
 export class UserItemComponent {
-@Input() name: string
-@Input() username: string
-@Input() website: string
-@Input() email: string
+@Input() name: string 
+@Input() username: string 
+@Input() website: string 
+@Input() email: string 
 }

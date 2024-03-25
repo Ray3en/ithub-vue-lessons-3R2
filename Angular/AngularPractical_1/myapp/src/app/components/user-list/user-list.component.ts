@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { UserItemComponent } from '../user-item/user-item.component';
 import { UsersService } from '../../services/users.service';
+import { UserItemComponent } from '../user-item/user-item.component';
 
 @Component({
   selector: 'app-user-list',
@@ -9,11 +9,11 @@ import { UsersService } from '../../services/users.service';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })
-export class UserListComponent implements OnInit{
-  public userService = inject(UsersService)
-
+export class UserListComponent implements OnInit {
+  public usersService = inject(UsersService)
+  
   ngOnInit(): void {
-      this.userService.fetchUsers()
+      this.usersService.fetchUserData()
   }
 
 }
